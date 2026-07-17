@@ -1,0 +1,9 @@
+# SQLite 运行时数据库及临时文件
+data/*.sqlite
+data/*.sqlite-shm
+data/*.sqlite-wal
+
+# 常见本地文件
+node_modules/
+.DS_Store
+Thumbs.db

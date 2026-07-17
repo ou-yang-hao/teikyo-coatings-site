@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="TeiKyo coating product information." />
+    <title>Product — TeiKyo</title>
+    <link rel="stylesheet" href="/styles.css?v=6" />
+    <link rel="stylesheet" href="/stitch.css?v=1" />
+    <script src="/site-shell.js?v=4" defer></script>
+    <script src="/script.js?v=8" defer></script>
+  </head>
+  <body data-page="products" class="stitch-site">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div data-site-header></div>
+    <main id="main">
+      <!-- 由 script.js 根据查询参数 code 从数据库加载产品详情。 -->
+      <section id="top" class="product-detail-page">
+        <div class="shell" data-product-detail>
+          <p class="content-empty">Loading product…</p>
+        </div>
+      </section>
+      <section class="section product-information-section">
+        <div class="shell" data-product-information></div>
+      </section>
+      <section class="page-cta">
+        <div class="shell page-cta-inner">
+          <div><p class="eyebrow light"><span></span> Need a sample or specification?</p><h2>Send a product reservation request.</h2></div>
+          <a class="button button-primary" data-product-reservation-link href="/products.html">联系我们 <span>→</span></a>
+        </div>
+      </section>
+    </main>
+    <div data-site-footer></div>
+  </body>
+</html>

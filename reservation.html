@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Send a product requirement to TeiKyo." />
+    <title>Product inquiry — TeiKyo</title>
+    <link rel="stylesheet" href="/styles.css?v=6" />
+    <link rel="stylesheet" href="/stitch.css?v=2" />
+    <script src="/site-shell.js?v=4" defer></script>
+    <script src="/script.js?v=9" defer></script>
+  </head>
+  <body data-page="products" class="stitch-site">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div data-site-header></div>
+    <main id="main">
+      <section class="reservation-hero">
+        <div class="shell reservation-heading reveal">
+          <p class="eyebrow"><span></span> Product reservation</p>
+          <h1>Tell us what<br />you would like to <em>reserve.</em></h1>
+          <p>Your request will be linked to the selected product and sent directly to our team.</p>
+        </div>
+      </section>
+      <section class="reservation-section">
+        <div class="shell reservation-layout">
+          <aside class="reservation-product" data-reservation-product>
+            <p class="content-empty">Loading selected product…</p>
+          </aside>
+          <form class="reservation-form" data-reservation-form>
+            <input name="inquiry_type" type="hidden" value="product_reservation" />
+            <input name="product_id" type="hidden" />
+            <input name="product_code" type="hidden" />
+            <div class="reservation-form-head"><p class="eyebrow dark"><span></span> Reservation letter</p><h2>Your requirements</h2></div>
+            <div class="form-row"><label>Name<input name="name" type="text" autocomplete="name" required placeholder="Your name" /></label><label>Company<input name="company" type="text" autocomplete="organization" placeholder="Company name" /></label></div>
+            <div class="form-row"><label>Work email<input name="email" type="email" autocomplete="email" required placeholder="name@company.com" /></label><label>Phone<input name="phone" type="tel" autocomplete="tel" placeholder="Country code + number" /></label></div>
+            <div class="form-row"><label>Country / region<input name="region" type="text" autocomplete="country-name" placeholder="Country or region" /></label><label>Application<input name="application" type="text" placeholder="How will the product be used?" /></label></div>
+            <div class="form-row"><label>Estimated quantity<input name="quantity" type="text" required placeholder="e.g. 500 kg or sample quantity" /></label><label>Desired delivery date<input name="desired_date" type="date" /></label></div>
+            <label>Reservation details<textarea name="message" rows="5" required placeholder="Please describe the specification, color, packaging, project timing and any technical requirements..."></textarea></label>
+            <p class="form-privacy">By submitting this form, you agree that we may use the information to respond to your request. See our <a href="/privacy.html">privacy policy</a>.</p>
+            <button class="button button-accent" type="submit" disabled>联系我们 <span>→</span></button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+    <div data-site-footer></div>
+  </body>
+</html>

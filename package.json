@@ -1,0 +1,16 @@
+{
+  "name": "teikyo-coatings-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check site-shell.js && node --check script.js && node --check lib/auth.js && node --check lib/admin.js && node --check admin/admin.js && node --check admin/login.js && node --check scripts/import-data.mjs && node --check scripts/manage-user.mjs",
+    "import:check": "node scripts/import-data.mjs --source imports/data --dry-run",
+    "import:data": "node scripts/import-data.mjs --source imports/data --replace",
+    "admin:create": "node scripts/manage-user.mjs --generate --force-change"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TeiKyo 管理后台</title>
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="admin-page">
+  <div class="admin-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <a class="brand-mark" href="/" target="_blank" rel="noopener">TeiKyo</a>
+        <span>管理后台</span>
+      </div>
+      <nav class="admin-nav" aria-label="后台导航">
+        <button class="nav-item active" data-section="dashboard">概览</button>
+        <button class="nav-item" data-section="content">网站内容</button>
+        <button class="nav-item" data-section="solutions">Solutions</button>
+        <button class="nav-item" data-section="products">产品管理</button>
+        <button class="nav-item" data-section="inquiries">客户询盘 <span class="nav-badge" data-notification-count hidden></span></button>
+        <button class="nav-item admin-only" data-section="users">用户与权限</button>
+        <button class="nav-item admin-only" data-section="audit">操作日志</button>
+        <button class="nav-item" data-section="password">修改密码</button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="user-chip"><span class="avatar" id="user-avatar">N</span><div><strong id="user-name">正在加载</strong><small id="user-role"></small></div></div>
+        <button class="button ghost full" id="logout-button">退出登录</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menu-button" aria-label="打开菜单">☰</button>
+        <div><p class="eyebrow">TEIKYO OPERATIONS</p><h1 id="page-title">业务概览</h1></div>
+        <div class="topbar-actions">
+          <a class="button secondary website-button" href="/" target="_blank" rel="noopener">查看官网 ↗</a>
+          <button class="notification-button" id="notification-button" aria-label="查看新询盘">消息 <span data-notification-count hidden></span></button>
+        </div>
+      </header>
+
+      <div id="password-warning" class="warning-banner" hidden>
+        当前使用的是初始密码。为保证数据安全，请先修改密码。
+        <button class="text-button" data-open-section="password">立即修改</button>
+      </div>
+
+      <section class="admin-section active" data-panel="dashboard">
+        <div class="metric-grid" id="metric-grid"></div>
+        <article class="panel">
+          <div class="panel-head"><div><p class="eyebrow">LATEST LEADS</p><h2>最近客户询盘</h2></div><button class="text-button" data-open-section="inquiries">查看全部</button></div>
+          <div class="table-wrap"><table><thead><tr><th>客户</th><th>公司</th><th>关联产品 / 需求</th><th>状态</th><th>提交时间</th></tr></thead><tbody id="recent-inquiries"></tbody></table></div>
+        </article>
+      </section>
+
+      <section class="admin-section" data-panel="content">
+        <div class="section-toolbar"><p class="muted">修改企业基础信息、About Us、Solutions 页面标题和企业数字。</p><div class="toolbar-actions"><button class="button secondary can-edit" id="import-content">导入内容表格</button><button class="button secondary can-edit" id="download-content-template">下载当前内容</button><button class="button primary can-edit" id="save-content">保存并更新官网</button></div></div>
+        <div class="content-editor-grid">
+          <article class="panel content-card"><div class="panel-head"><div><p class="eyebrow">BRAND</p><h2>企业基础信息</h2></div></div><div class="content-form-grid">
+            <label>品牌名称<input data-setting="company_name"></label><label>企业全称<input data-setting="company_legal_name"></label><label class="span-2">品牌标语<input data-setting="company_tagline"></label>
+            <label>首页主标题<input data-setting="hero_primary"></label><label>首页强调标题<input data-setting="hero_emphasis"></label><label class="span-2">首页简介<textarea data-setting="hero_intro" rows="3"></textarea></label>
+          </div></article>
+          <article class="panel content-card"><div class="panel-head"><div><p class="eyebrow">ABOUT US</p><h2>关于我们页面</h2></div></div><div class="content-form-grid">
+            <label>顶部眉题<input data-setting="about_hero_eyebrow"></label><label>顶部主标题<input data-setting="about_hero_primary"></label><label>顶部强调标题<input data-setting="about_hero_emphasis"></label><label class="span-2">顶部简介<textarea data-setting="about_hero_intro" rows="3"></textarea></label>
+            <label>企业介绍主标题<input data-setting="about_primary"></label><label>企业介绍强调标题<input data-setting="about_emphasis"></label><label class="span-2">企业介绍正文<textarea data-setting="about_body" rows="5"></textarea></label>
+          </div></article>
+          <article class="panel content-card"><div class="panel-head"><div><p class="eyebrow">SOLUTIONS PAGE</p><h2>Solutions 页面文案</h2></div></div><div class="content-form-grid">
+            <label>顶部眉题<input data-setting="solutions_hero_eyebrow"></label><label>顶部主标题<input data-setting="solutions_hero_primary"></label><label>顶部强调标题<input data-setting="solutions_hero_emphasis"></label><label class="span-2">顶部简介<textarea data-setting="solutions_hero_intro" rows="3"></textarea></label>
+            <label>内容眉题<input data-setting="solutions_intro_eyebrow"></label><label>内容主标题<input data-setting="solutions_intro_primary"></label><label>内容强调标题<input data-setting="solutions_intro_emphasis"></label><label class="span-2">内容简介<textarea data-setting="solutions_intro_body" rows="3"></textarea></label>
+          </div></article>
+          <article class="panel content-card"><div class="panel-head"><div><p class="eyebrow">CONTACT</p><h2>联系方式</h2></div></div><div class="content-form-grid"><label>联系邮箱<input data-setting="contact_email" type="email"></label><label>显示电话<input data-setting="contact_phone_display"></label><label>电话链接<input data-setting="contact_phone_link"></label><label class="span-2">企业地址<textarea data-setting="address" rows="3"></textarea></label></div></article>
+          <article class="panel content-card span-all"><div class="panel-head"><div><p class="eyebrow">COMPANY STATS</p><h2>企业数字</h2></div><button class="button secondary can-edit" id="add-stat">新增数字</button></div><div id="stats-editor" class="stats-editor"></div></article>
+        </div>
+      </section>
+
+      <section class="admin-section" data-panel="solutions">
+        <div class="section-toolbar"><p class="muted">管理 Solutions 页面中的行业方案，支持逐条编辑和表格批量导入。</p><div class="toolbar-actions"><input class="search-input" id="solution-search" placeholder="搜索方案名称"><button class="button secondary can-edit" id="import-solutions">导入表格</button><button class="button primary can-edit" id="add-solution">新增方案</button></div></div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>方案名称</th><th>摘要</th><th>排序</th><th>状态</th><th>操作</th></tr></thead><tbody id="solution-table"></tbody></table></div></article>
+      </section>
+
+      <section class="admin-section" data-panel="products">
+        <div class="section-toolbar">
+          <div><p class="muted">管理官网产品列表、详情、图片和发布状态。</p></div>
+          <div class="toolbar-actions"><input class="search-input" id="product-search" placeholder="搜索名称、编号或分类"><button class="button secondary can-edit" id="import-products">导入表格</button><button class="button primary can-edit" id="add-product">新增产品</button></div>
+        </div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>产品</th><th>编号</th><th>分类</th><th>排序</th><th>状态</th><th>操作</th></tr></thead><tbody id="product-table"></tbody></table></div></article>
+      </section>
+
+      <section class="admin-section" data-panel="inquiries">
+        <div class="section-toolbar">
+          <p class="muted">官网访客提交后会自动出现在这里；“新询盘”会触发后台消息提醒。</p>
+          <div class="toolbar-actions">
+            <input id="inquiry-product-filter" class="search-input" placeholder="搜索产品名称或编号">
+            <select id="inquiry-filter" class="select-control"><option value="">全部状态</option><option value="new">新询盘</option><option value="contacted">已联系</option><option value="qualified">有效需求</option><option value="closed">已关闭</option><option value="spam">无效信息</option></select>
+          </div>
+        </div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>客户</th><th>联系方式</th><th>关联产品</th><th>需求方向</th><th>状态</th><th>提交时间</th><th>操作</th></tr></thead><tbody id="inquiry-table"></tbody></table></div></article>
+      </section>
+
+      <section class="admin-section admin-only" data-panel="users">
+        <div class="section-toolbar"><p class="muted">为员工分配管理员、编辑或只读查看权限。</p><button class="button primary" id="add-user">新增用户</button></div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>用户</th><th>用户名</th><th>角色</th><th>状态</th><th>创建时间</th><th>操作</th></tr></thead><tbody id="user-table"></tbody></table></div></article>
+      </section>
+
+      <section class="admin-section admin-only" data-panel="audit">
+        <div class="section-toolbar"><p class="muted">最近 200 条登录与数据变更记录。</p><button class="button secondary" id="refresh-audit">刷新</button></div>
+        <article class="panel"><div class="table-wrap"><table><thead><tr><th>时间</th><th>用户</th><th>操作</th><th>对象</th><th>详情</th></tr></thead><tbody id="audit-table"></tbody></table></div></article>
+      </section>
+
+      <section class="admin-section" data-panel="password">
+        <article class="panel narrow-panel"><p class="eyebrow">ACCOUNT SECURITY</p><h2>修改登录密码</h2><p class="muted">新密码至少 12 个字符，并同时包含大写字母、小写字母和数字。</p>
+          <form id="password-form" class="form-stack">
+            <label>当前密码<input name="currentPassword" type="password" autocomplete="current-password" required></label>
+            <label>新密码<input name="newPassword" type="password" autocomplete="new-password" minlength="12" required></label>
+            <label>确认新密码<input name="confirmPassword" type="password" autocomplete="new-password" minlength="12" required></label>
+            <button class="button primary" type="submit">保存新密码</button>
+          </form>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="product-dialog" class="admin-dialog">
+    <form id="product-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">PRODUCT CONTENT</p><h2 id="product-dialog-title">新增产品</h2></div><button type="button" class="icon-button" data-close-dialog>×</button></div>
+      <input type="hidden" name="id">
+      <div class="form-grid">
+        <label>产品名称<input name="title" required></label><label>产品编号<input name="code" required></label>
+        <label>分类键<input name="category" placeholder="industrial" required></label><label>分类显示名称<input name="category_label" required></label>
+        <label class="span-2">产品摘要<textarea name="summary" rows="3" required></textarea></label>
+        <label class="span-2">产品图片路径<input name="image_url" placeholder="/assets/products/example.jpg"><small>图片请放入 assets/products，再填写以 /assets/products/ 开头的路径。</small></label>
+        <label class="span-2">详细介绍<textarea name="description" rows="5"></textarea></label>
+        <label>核心特点<textarea name="features" rows="4"></textarea></label><label>应用领域<textarea name="applications" rows="4"></textarea></label>
+        <label>适用基材<textarea name="substrates" rows="3"></textarea></label><label>性能参数<textarea name="performance" rows="3"></textarea></label>
+        <label>施工工艺<textarea name="process" rows="3"></textarea></label><label>包装信息<textarea name="package_info" rows="3"></textarea></label>
+        <label>资料链接<input name="document_url"></label><label>主题色<input name="theme" value="mint"></label>
+        <label>显示顺序<input name="position" type="number" min="0" value="0"></label><label class="check-label"><input name="is_published" type="checkbox" checked> 在官网发布</label>
+      </div>
+      <div class="dialog-actions"><button type="button" class="button secondary" data-close-dialog>取消</button><button type="submit" class="button primary">保存产品</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="inquiry-dialog" class="admin-dialog small-dialog">
+    <form id="inquiry-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">CUSTOMER INQUIRY</p><h2 id="inquiry-dialog-title">询盘详情</h2></div><button type="button" class="icon-button" data-close-dialog>×</button></div>
+      <input type="hidden" name="id"><div id="inquiry-details" class="detail-list"></div>
+      <label>处理状态<select name="status"><option value="new">新询盘</option><option value="contacted">已联系</option><option value="qualified">有效需求</option><option value="closed">已关闭</option><option value="spam">无效信息</option></select></label>
+      <label>内部跟进备注<textarea name="internal_notes" rows="5" placeholder="仅后台人员可见"></textarea></label>
+      <div class="dialog-actions"><button type="button" class="button secondary" data-close-dialog>关闭</button><button type="submit" class="button primary can-edit">保存处理结果</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="user-dialog" class="admin-dialog small-dialog">
+    <form id="user-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">TEAM ACCESS</p><h2>新增后台用户</h2></div><button type="button" class="icon-button" data-close-dialog>×</button></div>
+      <div class="form-stack"><label>显示名称<input name="displayName" required></label><label>用户名<input name="username" required></label><label>初始密码<input name="password" type="password" minlength="12" required><small>至少 12 个字符，包含大小写字母和数字。</small></label><label>角色<select name="role"><option value="viewer">查看者</option><option value="editor">编辑</option><option value="admin">管理员</option></select></label></div>
+      <div class="dialog-actions"><button type="button" class="button secondary" data-close-dialog>取消</button><button type="submit" class="button primary">创建用户</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="import-dialog" class="admin-dialog">
+    <form id="import-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">PRODUCT IMPORT</p><h2>导入产品表格</h2></div><button type="button" class="icon-button" data-close-dialog>×</button></div>
+      <div class="import-guide">
+        <div><strong>1. 准备文件</strong><p>支持 `.csv` 和 `.tsv`。Excel 请另存为“CSV UTF-8（逗号分隔）”。</p></div>
+        <div><strong>2. 安全更新</strong><p>以产品编号 `code` 匹配；已有编号更新，不存在的编号新增，空白单元格不会覆盖旧数据。</p></div>
+        <div><strong>3. 先预检</strong><p>发现缺列、重复编号或乱码时不会写入数据库。需要清空字段时填写 `[clear]`。</p></div>
+      </div>
+      <div class="import-actions">
+        <label class="file-picker">选择产品表格<input id="product-import-file" type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" required></label>
+        <button class="button secondary" id="download-import-template" type="button">下载 CSV 模板</button>
+        <button class="button secondary" id="preview-import" type="button">预检文件</button>
+      </div>
+      <p class="muted">可用列：`category`、`category_label`、`code`、`title`、`summary`、`theme`、`image_url`、详情字段、`position`、`is_published`。也支持模板中的中文列名。</p>
+      <div id="import-result" class="import-result" hidden></div>
+      <div class="table-wrap import-preview-wrap" id="import-preview-wrap" hidden><table><thead><tr><th>行号</th><th>产品编号</th><th>产品名称</th><th>动作</th></tr></thead><tbody id="import-preview-table"></tbody></table></div>
+      <div class="dialog-actions"><button type="button" class="button secondary" data-close-dialog>取消</button><button type="submit" class="button primary" id="commit-import" disabled>确认导入</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="solution-dialog" class="admin-dialog small-dialog">
+    <form id="solution-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">SOLUTION CONTENT</p><h2 id="solution-dialog-title">新增方案</h2></div><button type="button" class="icon-button" data-close-dialog>×</button></div>
+      <input name="id" type="hidden"><div class="form-stack"><label>方案名称<input name="title" required></label><label>方案摘要<textarea name="summary" rows="5" required></textarea></label><label>显示顺序<input name="position" type="number" min="0" value="0"></label><label class="check-label"><input name="is_published" type="checkbox" checked> 在官网发布</label></div>
+      <div class="dialog-actions"><button type="button" class="button secondary" data-close-dialog>取消</button><button type="submit" class="button primary">保存方案</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="site-import-dialog" class="admin-dialog">
+    <form id="site-import-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">CONTENT IMPORT</p><h2 id="site-import-title">导入内容表格</h2></div><button type="button" class="icon-button" data-close-dialog>×</button></div>
+      <div class="import-guide"><div><strong>1. 下载模板</strong><p id="site-import-guide">模板会使用 UTF-8 编码，可直接用 Excel 编辑。</p></div><div><strong>2. 安全预检</strong><p>导入前检查列名、重复项、必填内容和乱码。</p></div><div><strong>3. 整批写入</strong><p>校验失败时不修改数据库；空白单元格保留原值。</p></div></div>
+      <div class="import-actions"><label class="file-picker">选择表格<input id="site-import-file" type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" required></label><button class="button secondary" id="download-site-import-template" type="button">下载模板</button><button class="button secondary" id="preview-site-import" type="button">预检文件</button></div>
+      <div id="site-import-result" class="import-result" hidden></div>
+      <div class="table-wrap import-preview-wrap" id="site-import-preview-wrap" hidden><table><thead><tr><th>行号</th><th>标识</th><th>内容预览</th><th>动作</th></tr></thead><tbody id="site-import-preview-table"></tbody></table></div>
+      <div class="dialog-actions"><button type="button" class="button secondary" data-close-dialog>取消</button><button type="submit" class="button primary" id="commit-site-import" disabled>确认导入</button></div>
+    </form>
+  </dialog>
+
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+  <script type="module" src="/admin/admin.js"></script>
+</body>
+</html>
