@@ -2,6 +2,13 @@
 const header = document.querySelector('[data-header]');
 const menuToggle = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.main-nav');
+const mainScript = [...document.scripts].find((script) => new URL(script.src, window.location.href).pathname.endsWith('/script.js'));
+const mainBasePath = mainScript ? new URL(mainScript.src, window.location.href).pathname.replace(/\/script\.js$/, '') : '';
+
+// 为运行时生成的链接补上部署子目录，本地开发时 mainBasePath 为空字符串。
+function siteRoute(pathname) {
+  return `${mainBasePath}${pathname}`;
+}
 
 // 页面向下滚动超过顶部信息栏后，将主导航固定在视口顶部。
 const syncHeader = () => {
@@ -279,7 +286,7 @@ function renderProductDetail(products) {
 
   const reservationLink = document.querySelector('[data-product-reservation-link]');
   if (reservationLink) {
-    reservationLink.href = `/reservation.html?code=${encodeURIComponent(product.code)}`;
+    reservationLink.href = siteRoute(`/reservation.html?code=${encodeURIComponent(product.code)}`);
     configureNewWindowLinks(reservationLink.parentElement);
   }
 }

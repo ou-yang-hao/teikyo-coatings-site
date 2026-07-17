@@ -1,12 +1,20 @@
 // 多页面共享外壳：集中生成顶部信息栏、主导航和页脚，避免每个页面重复维护。
 const pageName = document.body.dataset.page || 'home';
+const shellScript = [...document.scripts].find((script) => new URL(script.src, window.location.href).pathname.endsWith('/site-shell.js'));
+const shellBasePath = shellScript ? new URL(shellScript.src, window.location.href).pathname.replace(/\/site-shell\.js$/, '') : '';
+
+// 根据共享脚本所在目录生成站内链接，同时兼容本地根目录和 GitHub Pages 项目子目录。
+function sitePath(pathname = '/') {
+  return `${shellBasePath}${pathname}`;
+}
+
 const navigationItems = [
-  ['home', 'Home', '/'],
-  ['products', 'Products', '/products.html'],
-  ['solutions', 'Solutions', '/solutions.html'],
-  ['capabilities', 'Capabilities', '/capabilities.html'],
-  ['insights', 'Insights', '/insights.html'],
-  ['about', 'About', '/about.html'],
+  ['home', 'Home', sitePath('/')],
+  ['products', 'Products', sitePath('/products.html')],
+  ['solutions', 'Solutions', sitePath('/solutions.html')],
+  ['capabilities', 'Capabilities', sitePath('/capabilities.html')],
+  ['insights', 'Insights', sitePath('/insights.html')],
+  ['about', 'About', sitePath('/about.html')],
 ];
 
 const headerMount = document.querySelector('[data-site-header]');
