@@ -5,5 +5,6 @@ data/*.sqlite-wal
 
 # 常见本地文件
 node_modules/
+dist/
 .DS_Store
 Thumbs.db

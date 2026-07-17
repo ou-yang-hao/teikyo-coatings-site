@@ -487,6 +487,16 @@ document.querySelectorAll('[data-contact-form], [data-reservation-form]').forEac
 
   inquiryForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    // GitHub Pages 仅提供免费静态演示，无法写入 SQLite；改为调用访客的邮件客户端。
+    if (window.location.hostname.endsWith('.github.io')) {
+      const productCode = inquiryForm.elements.product_code?.value || '';
+      const subject = productCode ? `TeiKyo product inquiry: ${productCode}` : 'TeiKyo coating inquiry';
+      formStatus.textContent = 'The public demo cannot save inquiries. Opening your email client…';
+      window.location.href = `mailto:info@teikyo.cn?subject=${encodeURIComponent(subject)}`;
+      return;
+    }
+
     const payload = Object.fromEntries(new FormData(inquiryForm).entries());
     const productIdentity = { id: payload.product_id || '', code: payload.product_code || '' };
     const originalButtonContent = submitButton.innerHTML;
