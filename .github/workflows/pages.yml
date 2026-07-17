@@ -28,6 +28,7 @@ jobs:
         run: node scripts/build-pages.mjs
         env:
           PAGES_BASE_PATH: /teikyo-coatings-site/
+          PAGES_ASSET_VERSION: ${{ github.sha }}
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

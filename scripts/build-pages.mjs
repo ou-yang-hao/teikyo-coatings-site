@@ -7,6 +7,7 @@ const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const outputDirectory = join(projectRoot, 'dist');
 const configuredBasePath = process.env.PAGES_BASE_PATH || '/teikyo-coatings-site/';
 const basePath = `/${configuredBasePath.replace(/^\/+|\/+$/g, '')}/`;
+const assetVersion = (process.env.PAGES_ASSET_VERSION || 'local').slice(0, 12);
 
 // 只发布访客需要的公开文件，后台、数据库和内部文档不会进入 Pages 制品。
 const publicFiles = [
@@ -24,6 +25,10 @@ function rewritePublicPaths(content, filename) {
     .replaceAll('href="/', `href="${basePath}`)
     .replaceAll('src="/', `src="${basePath}`)
     .replaceAll("url('/", `url('${basePath}`);
+
+  if (filename.endsWith('.html')) {
+    rewritten = rewritten.replace(/((?:site-shell|script)\.js)\?v=\d+/g, `$1?v=${assetVersion}`);
+  }
 
   if (filename === 'script.js') {
     rewritten = rewritten.replace("fetch('/api/content'", `fetch('${basePath}content.json'`);
